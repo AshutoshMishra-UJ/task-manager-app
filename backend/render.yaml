@@ -1,0 +1,35 @@
+{
+  "services": [
+    {
+      "type": "web",
+      "name": "task-manager-backend",
+      "runtime": "node",
+      "plan": "free",
+      "region": "oregon",
+      "buildCommand": "npm install",
+      "startCommand": "npm start",
+      "healthCheckPath": "/api/health",
+      "envVars": [
+        {
+          "key": "NODE_ENV",
+          "value": "production"
+        },
+        {
+          "key": "JWT_SECRET",
+          "generateValue": true
+        },
+        {
+          "key": "JWT_EXPIRE",
+          "value": "7d"
+        }
+      ]
+    }
+  ],
+  "databases": [
+    {
+      "name": "taskmanager-db",
+      "databaseName": "taskmanager",
+      "plan": "free"
+    }
+  ]
+}
