@@ -38,6 +38,19 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/taskmanag
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
 
+// Debug endpoint to test request body
+app.post('/api/debug', (req, res) => {
+  console.log('Request Body:', req.body);
+  console.log('Request Headers:', req.headers);
+  res.json({
+    message: 'Debug endpoint',
+    receivedBody: req.body,
+    bodyType: typeof req.body,
+    keys: Object.keys(req.body || {}),
+    contentType: req.get('Content-Type')
+  });
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ message: 'Task Manager API is running!', timestamp: new Date().toISOString() });
